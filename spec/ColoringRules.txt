@@ -1,0 +1,5 @@
+# This file was created by Wireshark. Edit with care.
+@Fan speed: presets - full speed@usb.capdata[3-4] == 64:64@[6682,24415,46260][65535,65535,65535]
+@Fan speed: presets - turbo@usb.capdata[3-4] == 37:46@[13621,33924,58596][64250,63993,63736]
+@Fan speed: presets - standart@usb.capdata[3-4] == 28:32@[25186,41120,60138][0,0,0]
+@Fan speed: presets - silent@usb.capdata[3-4] == 14:1e@[39321,49601,61937][0,0,0]
