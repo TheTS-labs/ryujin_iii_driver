@@ -10,7 +10,8 @@
 
 ### <span style="background-color:rgb(26, 95, 180); color: rgb(255, 255, 255); border-radius: 4px; padding: 0 2px 0 2px">Full speed</span>
 
-- Command: `0x64 0x64` (`7F`)
+- Command: `0x64 0x64` (`dd`)
+- Endpoint: `0x02`
 - Display filter: `usb.capdata[3-4] == 64:64`
 - <details>
   <summary>usb.capdata</summary>
@@ -40,6 +41,7 @@
 ### <span style="background-color:rgb(53, 132, 228); color: rgb(250, 249, 248); border-radius: 4px; padding: 0 2px 0 2px">Turbo</span>
 
 - Command: `0x37 0x46` (`7F`)
+- Endpoint: `0x02`
 - Display filter: `usb.capdata[3-4] == 37:46`
 - <details>
   <summary>usb.capdata</summary>
@@ -69,6 +71,7 @@
 ### <span style="background-color:rgb(98, 160, 234); color: rgb(0, 0, 0); border-radius: 4px; padding: 0 2px 0 2px">Standard</span>
 
 - Command: `0x28 0x32` (`(2`)
+- Endpoint: `0x02`
 - Display filter: `usb.capdata[3-4] == 28:32`
 - <details>
   <summary>usb.capdata</summary>
@@ -98,6 +101,7 @@
 ### <span style="background-color:rgb(153, 193, 240); color: rgb(0, 0, 0); border-radius: 4px; padding: 0 2px 0 2px">Silent</span>
 
 - Command: `0x14 0x1e` (`··`)
+- Endpoint: `0x02`
 - Display filter: `usb.capdata[3-4] == 14:1e`
 - <details>
   <summary>usb.capdata</summary>
