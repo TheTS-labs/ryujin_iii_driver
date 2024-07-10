@@ -1,6 +1,6 @@
 # Reverse engineered specifications
 
-- [Fan control (incomplete)](fan_control.md)
+- [Fan control](fan_control.md)
 
 ## Colors
 

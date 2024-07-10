@@ -1,11 +1,12 @@
 mod ryujin;
 mod usb;
 
-use ryujin::{FanPreset, RyujinDriver};
+use ryujin::RyujinDriver;
 
 fn main() -> rusb::Result<()> {
     let ryujin = RyujinDriver::new()?;
-    ryujin.set_fan_preset(FanPreset::Silent)?;
+
+    ryujin.set_duty(100, 0)?;
 
     Ok(())
 }
