@@ -6,7 +6,8 @@ use super::{Endpoint, EndpointInUse, UsbDevice, UsbInfo};
 
 impl UsbDevice {
     pub fn new(vendor_id: u16, product_id: u16, context: &Context) -> rusb::Result<Self> {
-        // TODO: Avoid cloning
+        log::info!(target: "ryujin_driver", "Initializing USB device {:04x}:{:04x}", vendor_id, product_id);
+
         let (device, descriptor) = context
             .devices()?
             .iter()
@@ -24,6 +25,8 @@ impl UsbDevice {
     pub fn info(&self, timeout: Option<Duration>) -> rusb::Result<UsbInfo> {
         let timeout = timeout.unwrap_or(Duration::from_secs(1));
         let language = self.handle.read_languages(timeout)?[0];
+
+        log::debug!(target: "ryujin_driver", "Getting device info: TIMEOUT: {:?}; LANGUAGE: {:?}", timeout, language);
 
         Ok(UsbInfo {
             language,
@@ -43,6 +46,7 @@ impl UsbDevice {
     }
 
     pub fn readable_endpoints(&self) -> Vec<Endpoint> {
+        log::debug!(target: "ryujin_driver", "Getting readable endpoints...");
         // TODO: Refactor
         let mut endpoints = vec![];
 

@@ -15,6 +15,7 @@ impl Payload {
     }
 
     pub fn add(mut self, data: &[u8]) -> Self {
+        log::debug!(target: "ryujin_driver", "Adding payload: {:02X?}", data);
         self.inner.extend_from_slice(data);
 
         self
@@ -24,6 +25,8 @@ impl Payload {
         if self.inner.len() > 65 {
             panic!("Payload is too big");
         }
+
+        log::info!(target: "ryujin_driver", "Finishing payload: {:02X?}", self.inner);
 
         self.inner.resize_with(65, || 0x00);
 

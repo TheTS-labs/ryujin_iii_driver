@@ -12,6 +12,10 @@ Sending `0xEC 0x53 0x00 <text as bytes in ascii>` (remaining space, 65 bytes in 
 
 To set default animation send `0xEC 0x5D 0x14 0x00 <mode>` (remaining space, 65 bytes in total, filled by zeroes) to the `0x02` endpoint where `<mode>` is range between `0x00` (0) and `0x04` (4)
 
+## Time
+
+Sending `0xEC 0x51 0x08 0x00 0x00` (remaining space, 65 bytes in total, filled by zeroes) to the `0x02` endpoint will set display to show time in 12h format where as sending `0xEC 0x51 0x08 0x00 0x01` will set display to show time in 24h
+
 ## Customized slideshow (Not yet implemented)
 
 ### Default animations
