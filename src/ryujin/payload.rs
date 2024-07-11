@@ -7,7 +7,12 @@ impl Debug for Payload {
 }
 
 impl Payload {
-    pub fn build() -> Self { Self { inner: Vec::with_capacity(65) } }
+    pub fn build(report_id: Option<u8>) -> Self {
+        let mut inner = Vec::with_capacity(65);
+        inner.push(report_id.unwrap_or(0xec));
+
+        Self { inner }
+    }
 
     pub fn add(mut self, data: &[u8]) -> Self {
         self.inner.extend_from_slice(data);

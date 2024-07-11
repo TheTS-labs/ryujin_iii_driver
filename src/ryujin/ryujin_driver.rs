@@ -1,7 +1,7 @@
 use rusb::Context;
 
-use super::{Payload, RyujinDriver, FAN_CONTROL_ENDPOINT_ADDRESS, PID, VID};
-use crate::usb::UsbDevice;
+use super::{Payload, RyujinDriver, CONTROL_ENDPOINT_ADDRESS, PID, VID};
+use crate::usb::{Endpoint, UsbDevice};
 
 impl RyujinDriver {
     pub fn new() -> rusb::Result<Self> {
@@ -15,15 +15,9 @@ impl RyujinDriver {
         assert!(pump_duty <= 100, "pump duty must be between 0 and 100");
         assert!(vrm_duty <= 100, "vrm duty must be between 0 and 100");
 
-        let endpoint = self
-            .usb_device
-            .readable_endpoints()
-            .into_iter()
-            .find(|e| e.address == FAN_CONTROL_ENDPOINT_ADDRESS)
-            .ok_or(rusb::Error::NotFound)?;
-
+        let endpoint = self.get_control_endpoint()?;
         let in_use = self.usb_device.setup_endpoint(&endpoint)?;
-        let payload = Payload::build().add(&[0xec, 0x1a, 0x01, pump_duty, vrm_duty]).finish();
+        let payload = Payload::build(None).add(&[0x1a, 0x01, pump_duty, vrm_duty]).finish();
 
         in_use.write_interrupt(&payload, None)?;
 
@@ -32,39 +26,47 @@ impl RyujinDriver {
         Ok(())
     }
 
-    // pub fn turn_off_screen(&self) -> rusb::Result<()> {
-    //     let endpoint = self
-    //         .usb_device
-    //         .readable_endpoints()
-    //         .into_iter()
-    //         .find(|e| e.address == FAN_CONTROL_ENDPOINT_ADDRESS)
-    //         .ok_or(rusb::Error::NotFound)?;
+    pub fn turn_off_screen(&self) -> rusb::Result<()> {
+        let endpoint = self.get_control_endpoint()?;
+        let in_use = self.usb_device.setup_endpoint(&endpoint)?;
+        let payload = Payload::build(None).add(&[0x51]).finish();
 
-    //     let in_use = self.usb_device.setup_endpoint(&endpoint)?;
-    //     let payload = Payload::build().add(&[0xec, 0x51]).finish();
+        in_use.write_interrupt(&payload, None)?;
 
-    //     in_use.write_interrupt(&payload, None)?;
+        in_use.release()?;
 
-    //     in_use.release()?;
+        Ok(())
+    }
 
-    //     Ok(())
-    // }
+    pub fn print_text_on_screen(&self, text: &str) -> rusb::Result<()> {
+        let endpoint = self.get_control_endpoint()?;
+        let in_use = self.usb_device.setup_endpoint(&endpoint)?;
+        let payload = Payload::build(None).add(&[0x53, 0x00]).add(text.as_bytes()).finish();
 
-    // pub fn print_text_on_screen(&self, text: &str) -> rusb::Result<()> {
-    //     let endpoint = self
-    //         .usb_device
-    //         .readable_endpoints()
-    //         .into_iter()
-    //         .find(|e| e.address == FAN_CONTROL_ENDPOINT_ADDRESS)
-    //         .ok_or(rusb::Error::NotFound)?;
+        in_use.write_interrupt(&payload, None)?;
 
-    //     let in_use = self.usb_device.setup_endpoint(&endpoint)?;
-    //     let payload = Payload::build().add(&[0xec, 0x53, 0x00]).add(text.as_bytes()).finish();
+        in_use.release()?;
 
-    //     in_use.write_interrupt(&payload, None)?;
+        Ok(())
+    }
 
-    //     in_use.release()?;
+    pub fn set_default_animation(&self, animation: u8) -> rusb::Result<()> {
+        let endpoint = self.get_control_endpoint()?;
+        let in_use = self.usb_device.setup_endpoint(&endpoint)?;
+        let payload = Payload::build(None).add(&[0x51, 0x14, 0x00, animation]).finish();
 
-    //     Ok(())
-    // }
+        in_use.write_interrupt(&payload, None)?;
+
+        in_use.release()?;
+
+        Ok(())
+    }
+
+    fn get_control_endpoint(&self) -> rusb::Result<Endpoint> {
+        self.usb_device
+            .readable_endpoints()
+            .into_iter()
+            .find(|e| e.address == CONTROL_ENDPOINT_ADDRESS)
+            .ok_or(rusb::Error::NotFound)
+    }
 }

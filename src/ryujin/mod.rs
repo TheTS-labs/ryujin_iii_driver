@@ -5,7 +5,7 @@ mod ryujin_driver;
 
 const VID: u16 = 0x0b05;
 const PID: u16 = 0x1aa2;
-const FAN_CONTROL_ENDPOINT_ADDRESS: u8 = 0x02;
+const CONTROL_ENDPOINT_ADDRESS: u8 = 0x02;
 
 pub struct RyujinDriver {
     usb_device: UsbDevice,

@@ -1,6 +1,7 @@
 # Reverse engineered specifications
 
 - [Fan control](fan_control.md)
+- [Screen control (incomplete)](screen_control.md)
 
 ## Colors
 
