@@ -1,2 +1,4 @@
 # This file was created by Wireshark. Edit with care.
-@Fan speed control@usbhid.data.padding[0] == 01@[6682,24415,46260][65535,65535,65535]
+@Set text (incomplete)@usbhid.data.padding[0] == 00 && usbhid.data.vendor == 53@[52685,43947,36751][0,0,0]
+@Turn off screen@usbhid.data.vendor == 51@[56540,35466,56797][0,0,0]
+@Fan speed control@usbhid.data.padding[0] == 01 && usbhid.data.vendor == 1a@[63993,61680,27499][0,0,0]

@@ -10,7 +10,6 @@ impl RyujinDriver {
         log::debug!(target: "ryujin_driver", "Creating context...");
         let context = Context::new()?;
 
-        log::debug!(target: "ryujin_driver", "Creating UsbDevice...");
         let usb_device = UsbDevice::new(VID, PID, &context)?;
 
         Ok(Self { usb_device })

@@ -2,7 +2,7 @@
 
 ## Presets
 
-As far as I can tell, the pump itself doesn't know anything about the temperatures, so the temperatures are monitored by the host, which then sends a command that sets the VRM speed of the fan and the pump in percentages
+As far as I can tell, the pump itself doesn't know anything about the temperatures, so the temperatures are monitored by the host, which then sends a command that sets the speed of the VRM fan and the pump in percentages
 
 ## Control
 

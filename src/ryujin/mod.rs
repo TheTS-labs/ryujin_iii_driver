@@ -13,7 +13,7 @@ pub struct RyujinDriver {
 }
 
 #[derive(Clone)]
-pub struct Payload {
+struct Payload {
     inner: Vec<u8>,
 }
 
